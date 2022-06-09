@@ -14,7 +14,7 @@ namespace Catalog.API.Data
         {
             var client = new MongoClient(configuration.GetValue<string>("DatabaseSettings:ConnectionString")); //by driver nuget
             var database=client.GetDatabase(configuration.GetValue<string>("DatabaseSettings:DatabaseName"));   //actually creating database
-            Products = database.GetCollection<Product>(configuration.GetValue<string>("DatabaseSettings:ConnectionName"));
+            Products = database.GetCollection<Product>(configuration.GetValue<string>("DatabaseSettings:CollectionName"));
             CatalogContextSeed.SeedData(Products); //Bakılacak
         }
 
