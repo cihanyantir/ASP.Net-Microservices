@@ -348,3 +348,4 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
+/src/Services/Ordering/Ordering.Application/Contracts/Persistence/Deneme.cs
