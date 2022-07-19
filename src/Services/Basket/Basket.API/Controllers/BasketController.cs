@@ -37,7 +37,7 @@ namespace Basket.API.Controllers
            //DİSCOUNTGRPC'DEN VERİ ÇEKİLİP İNDİRİM İŞLENİYOR.
             foreach (var item in basket.Items)
             {
-                var coupon = await _discountgrpcservice.GetDiscount(item.ProductName);
+                var coupon = await _discountgrpcservice.GetDiscount(item.ProductName);  //grpc controller yok serviceden çekiyor
                               //basketapi içerisindeki grpc servisindeki getdiscount metodu ile veri çekiliyor.
                 item.Price -= coupon.Amount;
                  
