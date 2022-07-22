@@ -23,7 +23,7 @@ namespace Basket.API.GrpcServices
             //gRPC ile iletişim için bağlı hizmet ekledik. Böylece discountgrpe basketten erişebildik.
             //Burası discount'un çekildği repository. Controllerda bunu işledin.
             //Restful apilerdeki gibi apiden apiye veri transferini url ile yapamıyorsun. 
-           
+       
             return await _discountprotoservice.GetDiscountAsync(discountrequest);
            
         }
