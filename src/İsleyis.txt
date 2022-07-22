@@ -1,0 +1,47 @@
+ public class CheckoutOrderCommandValidator: AbstractValidator<CheckoutOrderCommand>  classýndan rulefor belirliyorsun
+
+
+
+
+ var context = new ValidationContext<TRequest>(request); //on fluent namespace
+ var validationResults = await Task.WhenAll(_validators.Select(v => v.ValidateAsync(context, cancellationToken)));//runs all validators and return results
+ var failures = validationResults.SelectMany(r => r.Errors).Where(f => f != null).ToList(); //our validaton errors
+                                                        //Errors ValidationResult'tan geliyor
+                    if (failures.Count != 0)
+                    throw new ValidationException(failures);
+
+                    eðer failures varsa yeni exception oluþturuyor.
+                    Aþaðýdak constructor ile.
+
+
+
+
+
+ public class ValidationException : ApplicationException
+    {
+        public ValidationException(): base("One or more validation failures have occurred.")
+        {
+            Errors = new Dictionary<string, string[]>();
+        }
+
+        public ValidationException(IEnumerable<ValidationFailure> failures)
+            : this()
+        {
+            Errors = failures
+                .GroupBy(e => e.PropertyName, e => e.ErrorMessage)
+                .ToDictionary(failureGroup => failureGroup.Key, failureGroup => failureGroup.ToArray());
+        }
+
+        public IDictionary<string, string[]> Errors { get; }
+    }
+}
+
+zaten handlerda new exception yazýyorsun. applicaitonexception bunlarý implement ediyor.
+ public class NotFoundException : ApplicationException
+    {
+        public NotFoundException(string name, object key)
+            : base($"Entity \"{name}\" ({key}) was not found.")
+        {
+        }
+    }
+} ValidationException class'ý ile ilk ctor'u iþliyorusn. Ýkinci ctoruda üstte denildiði gibi.
