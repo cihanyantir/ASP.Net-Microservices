@@ -30,11 +30,20 @@ services:
   orderdb:
     container_name: orderdb
     environment:
-        SA_PASSWORD: "diJey1689721"
-        ACCEPT_EULA: "Y"
+        SA_PASSWORD: 'diJey1689721'
+        ACCEPT_EULA: 'Y'
     restart: always
     ports:
-        - "1433:1433"
+        - '1432:1433'
+
+
+  rabbitmq:
+    container_name: rabbitmq
+    restart: always
+    ports:
+        - "5672:5672"
+        - "15672:15672"
+
 
   pgadmin:
      container_name: pgadmin
@@ -78,6 +87,7 @@ services:
     ports:
       - "8002:80"
 
+  
   basket.api:
     container_name: basket.api
     environment:
@@ -102,4 +112,15 @@ services:
       - discountdb
     ports:
       - "8003:80"
+
+
+  ordering.api:
+    container_name: ordering.api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development 
+      - "ConnectionStrings:OrderingConnectionString=Server=orderdb;Database=OrderDb;User Id=sa;Password=diJey1689721"
+    depends_on:
+      - orderdb
+    ports:
+      - "8004:80"
 

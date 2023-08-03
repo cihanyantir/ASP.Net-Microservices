@@ -61,7 +61,7 @@ namespace Basket.API.Controllers
             await _repository.DeleteBasket(userName);
             return Ok();
         }
-        [Route("{action}")]
+        [Route("[action]")]
         [HttpPost]
         [ProducesResponseType((int)HttpStatusCode.Accepted)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
@@ -75,7 +75,7 @@ namespace Basket.API.Controllers
 
             // send checkout event to rabbitmq
             var eventMessage = _mapper.Map<BasketCheckoutEvent>(basketCheckout);
-            //eventMessage.TotalPrice = basket.TotalPrice;
+            eventMessage.TotalPrice = basket.TotalPrice;
             await _publishEndpoint.Publish(eventMessage);
 
             // remove the basket

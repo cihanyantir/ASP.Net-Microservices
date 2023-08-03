@@ -28,9 +28,10 @@ namespace Ordering.Application.Behaviours
                var validationResults = await Task.WhenAll(_validators.Select(v => v.ValidateAsync(context, cancellationToken)));//runs all validators and return results
                 var failures = validationResults.SelectMany(r => r.Errors).Where(f => f != null).ToList(); //our validaton errors
                                                         //Errors ValidationResult'classtan geliyor
+                
 
                 if (failures.Count != 0)
-                    throw new ValidationException();
+                    throw new ValidationException(); //contructoru kullanıyor. constructor overload edilmiş. ValidationFailure referansı verilseydi errorslar cıkar idi.
             }
 
             return await next();

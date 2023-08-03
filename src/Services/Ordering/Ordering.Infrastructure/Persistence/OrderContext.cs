@@ -21,7 +21,7 @@ namespace Ordering.Infrastructure.Persistence
             foreach (var entry in ChangeTracker.Entries<EntityBase>())
             {
                 switch (entry.State)
-                {
+                {      //her girişe zaman ve by ekleniyor
                     case EntityState.Added:
                         entry.Entity.CreatedDate = DateTime.Now;
                         entry.Entity.CreatedBy = "swn";
