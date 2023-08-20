@@ -20,7 +20,7 @@ namespace EventBus.Messages.Events
             CreationDate = creationDate;
         }
 
-        public Guid Id { get; set; }  
-        public DateTime CreationDate { get; set; }
+        public Guid Id { get; private set; }  
+        public DateTime CreationDate { get; private set; }
     }
 }
